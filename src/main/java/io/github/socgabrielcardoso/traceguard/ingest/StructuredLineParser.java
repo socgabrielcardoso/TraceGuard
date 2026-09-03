@@ -10,13 +10,14 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class StructuredLineParser implements LineParser {
-    private static final Pattern FIELD = Pattern.compile("([A-Za-z0-9_.-]+)=(\\\"(?:\\\\.|[^\\\"])*\\\"|\\S+)");
+    private static final Pattern FIELD = Pattern.compile("([@A-Za-z0-9_.-]+)=(\\\"(?:\\\\.|[^\\\"])*\\\"|\\S+)");
 
     @Override
     public boolean supports(String line) {
@@ -57,7 +58,7 @@ public final class StructuredLineParser implements LineParser {
         Map<String, String> values = new LinkedHashMap<>();
         Matcher matcher = FIELD.matcher(line);
         while (matcher.find()) {
-            values.put(matcher.group(1).toLowerCase(), unquote(matcher.group(2)));
+            values.put(matcher.group(1).toLowerCase(Locale.ROOT), unquote(matcher.group(2)));
         }
         return values;
     }

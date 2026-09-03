@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Locale;
 
 final class IncidentFactory {
     private IncidentFactory() {
@@ -27,7 +28,7 @@ final class IncidentFactory {
                 .sorted((left, right) -> left.timestamp().compareTo(right.timestamp()))
                 .toList();
         String seed = ruleId + '|' + entity + '|' + ordered.get(0).timestamp();
-        String id = "TG-" + digest(seed).substring(0, 12).toUpperCase();
+        String id = "TG-" + digest(seed).substring(0, 12).toUpperCase(Locale.ROOT);
         return new Incident(
                 id,
                 ruleId,
@@ -50,4 +51,3 @@ final class IncidentFactory {
         }
     }
 }
-

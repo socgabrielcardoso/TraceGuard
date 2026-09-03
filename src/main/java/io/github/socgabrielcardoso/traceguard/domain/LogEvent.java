@@ -1,6 +1,7 @@
 package io.github.socgabrielcardoso.traceguard.domain;
 
 import java.time.Instant;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public record LogEvent(
 
     public String identity() {
         if (!user.isBlank()) {
-            return user.toLowerCase();
+            return user.toLowerCase(Locale.ROOT);
         }
         if (!sourceIp.isBlank()) {
             return sourceIp;

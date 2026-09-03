@@ -4,6 +4,7 @@ import io.github.socgabrielcardoso.traceguard.domain.Severity;
 import io.github.socgabrielcardoso.traceguard.report.ReportFormat;
 
 import java.nio.file.Path;
+import java.util.Locale;
 
 public record CliArguments(
         Command command,
@@ -78,10 +79,9 @@ public record CliArguments(
     }
 
     private static ReportFormat inferFormat(Path output) {
-        if (output != null && output.getFileName().toString().toLowerCase().endsWith(".json")) {
+        if (output != null && output.getFileName().toString().toLowerCase(Locale.ROOT).endsWith(".json")) {
             return ReportFormat.JSON;
         }
         return ReportFormat.TEXT;
     }
 }
-
