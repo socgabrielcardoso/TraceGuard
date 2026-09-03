@@ -16,7 +16,9 @@ public final class RuleEngine {
         return new RuleEngine(List.of(
                 new BruteForceRule(),
                 new PasswordSprayRule(),
-                new SuccessAfterFailuresRule()
+                new SuccessAfterFailuresRule(),
+                new SensitiveChangeRule(),
+                new SuspiciousProcessRule()
         ));
     }
 
