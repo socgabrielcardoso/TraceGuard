@@ -94,7 +94,8 @@ public final class OpenSshLineParser implements LineParser {
                 .append(SYSLOG_TIME)
                 .parseDefaulting(ChronoField.YEAR, now.getYear())
                 .toFormatter(Locale.ENGLISH);
-        LocalDateTime parsed = LocalDateTime.parse(value, formatter);
+        String normalized = value.trim().replaceAll("\\s+", " ");
+        LocalDateTime parsed = LocalDateTime.parse(normalized, formatter);
         Instant timestamp = parsed.toInstant(ZoneOffset.UTC);
         if (MonthDay.from(parsed).isAfter(MonthDay.from(now)) && timestamp.isAfter(now.toInstant())) {
             timestamp = parsed.minusYears(1).toInstant(ZoneOffset.UTC);
