@@ -14,3 +14,31 @@ O TraceGuard recebe registros de autenticação, aplica regras de análise e tra
 - Comandos dedicados para listar regras, consultar versão e exibir ajuda.
 
 A proposta é aproximar investigação de logs e automação: a ferramenta pode ser usada tanto manualmente por um analista quanto como etapa de validação em rotinas técnicas.
+
+## Stack
+
+- **Java 17**
+- **Maven**
+- **JUnit 5**
+- Aplicação CLI empacotada como JAR executável
+
+## Build
+
+```bash
+mvn clean package
+```
+
+## Exemplos de uso
+
+```bash
+traceguard analyze auth.log
+traceguard analyze logs --format json --output incidents.json
+traceguard analyze auth.log --fail-on high
+traceguard rules
+```
+
+## Objetivo técnico
+
+TraceGuard foi criado como projeto de Blue Team orientado a automação. O foco é demonstrar como eventos brutos podem ser normalizados, avaliados por regras e convertidos em incidentes acionáveis com severidade e saída previsível.
+
+Além da análise manual, o código foi estruturado para facilitar integração futura com pipelines, coletores de logs, SIEMs e rotinas de resposta a incidentes.
