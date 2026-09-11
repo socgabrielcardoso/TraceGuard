@@ -3,3 +3,14 @@
 Ferramenta de linha de comando para investigação de logs e geração de incidentes priorizados, criada com foco em análise defensiva, automação e operação de segurança.
 
 O TraceGuard recebe registros de autenticação, aplica regras de análise e transforma eventos relevantes em uma saída estruturada, ajudando a separar ruído operacional de sinais que merecem investigação.
+
+## Principais recursos
+
+- Análise de logs de autenticação OpenSSH e entradas estruturadas com timestamp ISO e campos `key=value`.
+- Geração de incidentes priorizados a partir de regras de detecção.
+- Saída em texto ou JSON para uso humano ou integração com outros fluxos.
+- Exportação de relatórios para arquivo.
+- Filtro por severidade com `--fail-on`, útil em automações e pipelines.
+- Comandos dedicados para listar regras, consultar versão e exibir ajuda.
+
+A proposta é aproximar investigação de logs e automação: a ferramenta pode ser usada tanto manualmente por um analista quanto como etapa de validação em rotinas técnicas.
