@@ -1,17 +1,24 @@
-# Project Profile
+# TraceGuard — notas do projeto
 
-**TraceGuard** is a defensive Java CLI that converts authentication logs into normalized security events and prioritized incidents.
+## Problema
 
-## What this project demonstrates
-- Log parsing and normalization
-- Detection-rule execution
-- Severity-based incident prioritization
-- CLI and JSON output for automation
-- Maven/JUnit engineering discipline
+Logs de autenticação costumam chegar como texto bruto. O TraceGuard organiza esse conteúdo em eventos normalizados e executa regras simples para destacar o que merece revisão.
 
-## Portfolio signal
-The project mirrors a core Blue Team workflow: transform raw telemetry into structured, explainable and actionable security findings.
+## Fluxo
 
-**Domain:** Blue Team, Detection Engineering, Log Analysis  
-**Stack:** Java 17, Maven, JUnit 5  
-**Status:** Active technical laboratory
+1. lê o arquivo de entrada;
+2. interpreta cada registro;
+3. normaliza os campos;
+4. executa regras de detecção;
+5. classifica o resultado;
+6. entrega saída em texto ou JSON.
+
+## Tecnologias
+
+- Java 17
+- Maven
+- JUnit 5
+
+## Uso esperado
+
+O projeto serve para estudar parsing, regras, severidade, correlação e automação defensiva em uma base pequena o suficiente para entender todo o fluxo.
