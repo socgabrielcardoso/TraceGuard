@@ -1,13 +1,14 @@
-# Technical Roadmap
+# Próximos passos
 
-High-value evolutions:
-1. richer normalized event model;
-2. confidence scoring;
-3. correlation across sources;
-4. configurable rules;
-5. schema-versioned JSON;
-6. performance benchmarks;
-7. additional defensive log formats;
-8. rule coverage reporting.
+Itens que fazem sentido para o TraceGuard:
 
-Features should be added only when they improve defensible analysis.
+1. ampliar o modelo de evento normalizado;
+2. separar severidade de confiança;
+3. correlacionar eventos relacionados;
+4. permitir regras configuráveis;
+5. versionar o schema JSON;
+6. medir desempenho com arquivos maiores;
+7. aceitar mais formatos de log;
+8. gerar uma visão simples de cobertura das regras.
+
+A prioridade é manter o fluxo fácil de entender e testar. Não vale adicionar recurso que esconda a lógica da detecção.
