@@ -1,31 +1,26 @@
 # TraceGuard
 
-> **Blue Team Security Lab** — laboratório pessoal para estudo prático de análise de logs, detecção e automação defensiva.
+CLI em Java para transformar logs de autenticação em eventos normalizados e incidentes priorizados.
 
-O **TraceGuard** é uma ferramenta de linha de comando criada para transformar registros de autenticação em eventos estruturados e incidentes priorizados. O projeto explora fundamentos de operações defensivas, investigação de logs e automação com foco em clareza, rastreabilidade e integração futura com fluxos de segurança.
+Criei o TraceGuard para praticar uma parte específica do trabalho de Blue Team: sair do log bruto, aplicar regras simples e chegar a uma saída que um analista consiga revisar sem precisar interpretar tudo manualmente.
 
-## Foco técnico
+## Recursos
 
-- Análise de logs de autenticação OpenSSH e entradas estruturadas com timestamp ISO e campos `key=value`.
-- Normalização de eventos e aplicação de regras de detecção.
-- Geração de incidentes priorizados por severidade.
-- Saída em texto ou JSON para análise humana e automações.
-- Exportação de resultados para arquivo.
-- Filtro por severidade com `--fail-on`, útil em pipelines e rotinas técnicas.
-- Comandos dedicados para listar regras, consultar versão e exibir ajuda.
-
-## Contexto de estudo
-
-O projeto foi criado como laboratório de **Blue Team / SOC** para praticar o caminho entre um evento bruto e uma saída acionável: coleta, normalização, avaliação por regra, classificação e priorização.
-
-Não busca substituir um SIEM ou uma plataforma de SOC. A proposta é estudar, em uma base controlada, conceitos que aparecem em ferramentas e operações reais de segurança.
+- leitura de logs de autenticação OpenSSH
+- suporte a entradas estruturadas com timestamp ISO e campos `key=value`
+- normalização de eventos
+- regras de detecção
+- classificação por severidade
+- saída em texto ou JSON
+- exportação para arquivo
+- `--fail-on` para uso em pipelines
+- listagem de regras e informações de versão
 
 ## Stack
 
-- **Java 17**
-- **Maven**
-- **JUnit 5**
-- Aplicação CLI empacotada como JAR executável
+- Java 17
+- Maven
+- JUnit 5
 
 ## Build
 
@@ -33,21 +28,28 @@ Não busca substituir um SIEM ou uma plataforma de SOC. A proposta é estudar, e
 mvn clean package
 ```
 
-## Exemplos de uso
+O artefato gerado fica em:
 
-```bash
-traceguard analyze auth.log
-traceguard analyze logs --format json --output incidents.json
-traceguard analyze auth.log --fail-on high
-traceguard rules
+```text
+target/traceguard.jar
 ```
 
-## Evolução possível
+## Exemplos
 
-A arquitetura permite evoluções como integração com coletores de logs, SIEMs, pipelines de validação, novas regras de detecção e rotinas de resposta a incidentes.
+```bash
+java -jar target/traceguard.jar analyze auth.log
+java -jar target/traceguard.jar analyze logs --format json --output incidents.json
+java -jar target/traceguard.jar analyze auth.log --fail-on high
+java -jar target/traceguard.jar rules
+```
 
----
+## Estrutura
 
-**Categoria:** Cybersecurity • Blue Team • Log Analysis • Detection Engineering • Automation
+- `src/` — código Java
+- `samples/` — exemplos de entrada
+- `docs/` — arquitetura e notas técnicas
+- `pom.xml` — build e dependências
 
-**Status:** laboratório pessoal de estudo e experimentação técnica.
+## Limite do projeto
+
+O TraceGuard não tenta ser um SIEM. É uma ferramenta pequena para estudar parsing, normalização, regras, severidade e saída estruturada de forma testável.
