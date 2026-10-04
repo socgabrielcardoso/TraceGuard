@@ -1,12 +1,14 @@
-# Analyst Workflow
+# Fluxo de análise
 
-1. Run analysis on scoped input.
-2. Review highest-severity incident.
-3. Inspect evidence fields.
-4. Pivot to raw events.
-5. Validate entity context.
-6. Decide benign, suspicious or confirmed.
-7. Document rationale.
-8. Tune or add rule when a repeatable pattern exists.
+Quando o TraceGuard gera um incidente:
 
-TraceGuard supports analysis; it does not replace analyst judgment.
+1. começar pelos itens de maior severidade;
+2. conferir quais eventos fizeram a regra disparar;
+3. voltar ao log bruto;
+4. validar usuário, origem e horário;
+5. comparar com outros eventos próximos;
+6. decidir se o comportamento é esperado, suspeito ou confirmado;
+7. registrar o motivo;
+8. ajustar a regra apenas se o padrão for repetível.
+
+A saída da ferramenta é ponto de partida. A decisão ainda depende do contexto.
