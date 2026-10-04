@@ -1,12 +1,15 @@
-# Portfolio Positioning
+# Por que o TraceGuard existe
 
-TraceGuard demonstrates:
-- Java engineering;
-- log parsing;
-- detection logic;
-- testing;
-- CLI design;
-- structured security output;
-- Blue Team reasoning.
+Eu queria praticar o caminho completo entre um log e uma decisão de análise sem depender de uma plataforma pronta.
 
-The strongest portfolio story is the transformation of raw authentication data into explainable, testable detections—not the number of rules alone.
+Por isso o projeto concentra algumas peças pequenas no mesmo fluxo:
+
+- parsing;
+- normalização;
+- regras;
+- severidade;
+- testes;
+- saída de CLI;
+- JSON para automação.
+
+O foco não é ter centenas de regras. É conseguir abrir o código e entender exatamente por que um evento virou incidente.
