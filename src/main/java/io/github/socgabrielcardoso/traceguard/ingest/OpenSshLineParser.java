@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public final class OpenSshLineParser implements LineParser {
     private static final Pattern SYSLOG = Pattern.compile("^(?<time>(?:[A-Z][a-z]{2}\\s+\\d{1,2}\\s+\\d{2}:\\d{2}:\\d{2}|\\d{4}-\\d{2}-\\d{2}T\\S+))\\s+(?<host>\\S+)\\s+sshd(?:\\[\\d+])?:\\s+(?<message>.+)$");
     private static final Pattern FAILURE = Pattern.compile("\\bFailed (?:password|publickey) for (?:invalid user )?(?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
-    private static final Pattern SUCCESS = Pattern.compile("Accepted (?:password|publickey) for (?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern SUCCESS = Pattern.compile("\\bAccepted (?:password|publickey) for (?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern PAM_FAILURE = Pattern.compile("authentication failure;.*?rhost=(?<ip>\\S+)(?:.*?user=(?<user>\\S+))?", Pattern.CASE_INSENSITIVE);
     private static final DateTimeFormatter SYSLOG_TIME = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
