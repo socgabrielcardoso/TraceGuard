@@ -33,4 +33,12 @@ class OpenSshHardeningTest {
         assertEquals("2001:db8::1", event.sourceIp());
     }
 
+
+    @Test
+    void identifiesInvalidUserPasswordFailures() {
+        LogEvent event = parser.parse("auth.log", 4, "Sep 3 09:00:00 edge sshd: Failed password for invalid user scanner from 198.51.100.4 port 22", clock).orElseThrow();
+        assertEquals(EventType.AUTH_FAILURE, event.type());
+        assertEquals("scanner", event.user());
+    }
+
 }
