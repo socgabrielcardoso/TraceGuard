@@ -55,4 +55,10 @@ class OpenSshHardeningTest {
         assertEquals(Instant.parse("2025-12-31T23:59:59Z"), event.timestamp());
     }
 
+
+    @Test
+    void rejectsEmbeddedAuthenticationWordsInsideUnrelatedText() {
+        assertTrue(parser.parse("auth.log", 7, "Sep 3 09:00:00 edge sshd: prefixAccepted password for root from 198.51.100.5", clock).isEmpty());
+    }
+
 }
