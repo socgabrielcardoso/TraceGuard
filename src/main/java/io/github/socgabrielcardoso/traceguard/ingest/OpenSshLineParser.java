@@ -4,6 +4,7 @@ import io.github.socgabrielcardoso.traceguard.domain.EventType;
 import io.github.socgabrielcardoso.traceguard.domain.LogEvent;
 
 import java.time.Clock;
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
@@ -22,8 +23,8 @@ import java.util.regex.Pattern;
 
 public final class OpenSshLineParser implements LineParser {
     private static final Pattern SYSLOG = Pattern.compile("^(?<time>(?:[A-Z][a-z]{2}\\s+\\d{1,2}\\s+\\d{2}:\\d{2}:\\d{2}|\\d{4}-\\d{2}-\\d{2}T\\S+))\\s+(?<host>\\S+)\\s+sshd(?:\\[\\d+])?:\\s+(?<message>.+)$");
-    private static final Pattern FAILURE = Pattern.compile("Failed (?:password|publickey) for (?:invalid user )?(?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
-    private static final Pattern SUCCESS = Pattern.compile("Accepted (?:password|publickey) for (?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FAILURE = Pattern.compile("\\bFailed (?:password|publickey) for (?:invalid user )?(?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern SUCCESS = Pattern.compile("\\bAccepted (?:password|publickey) for (?<user>\\S+) from (?<ip>[0-9a-fA-F:.]+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern PAM_FAILURE = Pattern.compile("authentication failure;.*?rhost=(?<ip>\\S+)(?:.*?user=(?<user>\\S+))?", Pattern.CASE_INSENSITIVE);
     private static final DateTimeFormatter SYSLOG_TIME = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
@@ -37,6 +38,7 @@ public final class OpenSshLineParser implements LineParser {
 
     @Override
     public Optional<LogEvent> parse(String source, long lineNumber, String line, Clock clock) {
+        if (line == null) return Optional.empty();
         Matcher syslog = SYSLOG.matcher(line);
         if (!syslog.matches()) {
             return Optional.empty();
@@ -66,10 +68,16 @@ public final class OpenSshLineParser implements LineParser {
             return Optional.empty();
         }
 
+        Instant timestamp;
+        try {
+            timestamp = parseTimestamp(syslog.group("time"), clock);
+        } catch (DateTimeException ex) {
+            return Optional.empty();
+        }
         return Optional.of(new LogEvent(
                 source,
                 lineNumber,
-                parseTimestamp(syslog.group("time"), clock),
+                timestamp,
                 type,
                 syslog.group("host"),
                 user,
