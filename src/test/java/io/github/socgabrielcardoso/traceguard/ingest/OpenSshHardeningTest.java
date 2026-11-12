@@ -48,4 +48,11 @@ class OpenSshHardeningTest {
         assertEquals("dev", event.user());
     }
 
+
+    @Test
+    void rollsDecemberLogsBackToPriorYearWhenClockIsInSeptember() {
+        LogEvent event = parser.parse("auth.log", 6, "Dec 31 23:59:59 edge sshd: Accepted password for root from 198.51.100.5", clock).orElseThrow();
+        assertEquals(Instant.parse("2025-12-31T23:59:59Z"), event.timestamp());
+    }
+
 }
