@@ -26,4 +26,11 @@ class OpenSshHardeningTest {
         assertTrue(parser.parse("auth.log", 2, "Sep 35 12:00:00 edge sshd: Failed password for root from 198.51.100.2", clock).isEmpty());
     }
 
+
+    @Test
+    void acceptsIPv6AuthenticatedConnections() {
+        LogEvent event = parser.parse("auth.log", 3, "Sep 3 09:00:00 edge sshd: Accepted publickey for alice from 2001:db8::1 port 22 ssh2", clock).orElseThrow();
+        assertEquals("2001:db8::1", event.sourceIp());
+    }
+
 }
