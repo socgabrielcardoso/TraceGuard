@@ -20,4 +20,10 @@ class OpenSshHardeningTest {
         assertTrue(parser.parse("auth.log", 1, null, clock).isEmpty());
     }
 
+
+    @Test
+    void ignoresInvalidSyslogDates() {
+        assertTrue(parser.parse("auth.log", 2, "Sep 35 12:00:00 edge sshd: Failed password for root from 198.51.100.2", clock).isEmpty());
+    }
+
 }
