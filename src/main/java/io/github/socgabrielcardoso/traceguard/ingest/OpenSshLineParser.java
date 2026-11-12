@@ -37,6 +37,7 @@ public final class OpenSshLineParser implements LineParser {
 
     @Override
     public Optional<LogEvent> parse(String source, long lineNumber, String line, Clock clock) {
+        if (line == null) return Optional.empty();
         Matcher syslog = SYSLOG.matcher(line);
         if (!syslog.matches()) {
             return Optional.empty();
