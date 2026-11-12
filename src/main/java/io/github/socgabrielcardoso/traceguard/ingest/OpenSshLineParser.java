@@ -4,6 +4,7 @@ import io.github.socgabrielcardoso.traceguard.domain.EventType;
 import io.github.socgabrielcardoso.traceguard.domain.LogEvent;
 
 import java.time.Clock;
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
