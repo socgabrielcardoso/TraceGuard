@@ -68,10 +68,16 @@ public final class OpenSshLineParser implements LineParser {
             return Optional.empty();
         }
 
+        Instant timestamp;
+        try {
+            timestamp = parseTimestamp(syslog.group("time"), clock);
+        } catch (DateTimeException ex) {
+            return Optional.empty();
+        }
         return Optional.of(new LogEvent(
                 source,
                 lineNumber,
-                parseTimestamp(syslog.group("time"), clock),
+                timestamp,
                 type,
                 syslog.group("host"),
                 user,
