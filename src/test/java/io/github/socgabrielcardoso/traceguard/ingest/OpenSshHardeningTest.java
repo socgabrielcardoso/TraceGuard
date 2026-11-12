@@ -41,4 +41,11 @@ class OpenSshHardeningTest {
         assertEquals("scanner", event.user());
     }
 
+
+    @Test
+    void recognizesPAMAuthenticationFailures() {
+        LogEvent event = parser.parse("auth.log", 5, "Sep 3 09:00:00 edge sshd: pam_unix(sshd:auth): authentication failure; rhost=198.51.100.6 user=dev", clock).orElseThrow();
+        assertEquals("dev", event.user());
+    }
+
 }
